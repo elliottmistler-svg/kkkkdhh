@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05060d">
+<title>TikTok Spark</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#f1f5f9;--line:rgba(255,255,255,.08);--glass:rgba(255,255,255,.04);
+--pri:#7c3aed;--pri2:#a855f7;--pink:#ec4899;--cyan:#06b6d4;--green:#10b981;
+--red:#ef4444;--gold:#fbbf24}
+html,body{width:100%;overflow-x:hidden}
+body{font-family:-apple-system,"SF Pro Display","Segoe UI",Tahoma,sans-serif;
+background:radial-gradient(ellipse 70% 50% at 10% -10%, rgba(168,85,247,.4) 0%, transparent 60%),
+radial-gradient(ellipse 60% 50% at 90% 10%, rgba(236,72,153,.3) 0%, transparent 60%),
+radial-gradient(ellipse 80% 60% at 50% 110%, rgba(6,182,212,.25) 0%, transparent 60%),#05060d;
+color:var(--ink);min-height:100vh;direction:rtl;line-height:1.6;padding-bottom:40px;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+background-image:linear-gradient(rgba(168,85,247,.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(168,85,247,.03) 1px, transparent 1px);background-size:40px 40px;
+mask-image:radial-gradient(ellipse at center, black 40%, transparent 85%);
+-webkit-mask-image:radial-gradient(ellipse at center, black 40%, transparent 85%)}
+.container{max-width:1080px;margin:0 auto;padding:24px 18px;position:relative;z-index:1}
+a{color:#67e8f9;text-decoration:none;transition:.15s}
+a:hover{color:#a5f3fc}
+.navbar{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;
+align-items:center;padding:14px 22px;background:rgba(5,6,13,.72);
+backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px}
+.logo .mark{width:36px;height:36px;border-radius:12px;
+background:conic-gradient(from 210deg, #a855f7, #ec4899, #06b6d4, #a855f7);
+display:grid;place-items:center;font-size:20px;box-shadow:0 8px 30px rgba(168,85,247,.5);
+animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.logo .word{background:linear-gradient(90deg,#f1f5f9,#a855f7,#67e8f9);
+-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.nav a{padding:9px 16px;border-radius:11px;font-size:14px;font-weight:600;color:#cbd5e1;position:relative}
+.nav a:hover{background:var(--glass);color:#fff}
+.nav a .dot{position:absolute;top:5px;left:5px;min-width:18px;height:18px;border-radius:9px;
+background:var(--red);color:#fff;font-size:10px;padding:0 5px;display:grid;place-items:center;font-weight:800}
+.hero{text-align:center;padding:32px 20px 24px}
+.hero h1{font-size:clamp(30px,6vw,56px);font-weight:900;line-height:1.05;letter-spacing:-1px;
+background:linear-gradient(120deg,#f1f5f9 0%,#a855f7 40%,#ec4899 70%,#67e8f9 100%);
+-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 200%;
+animation:slide 6s ease-in-out infinite}
+@keyframes slide{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero .sub{margin-top:16px;color:#b5aee0;font-size:15px;max-width:520px;margin-inline:auto}
+.hero .pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;
+font-size:12px;font-weight:700;background:var(--glass);border:1px solid var(--line);color:#cbd5e1}
+.chip.on{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35);color:#6ee7b7}
+.card{background:linear-gradient(180deg,rgba(20,16,45,.7),rgba(10,8,28,.7));
+border:1px solid var(--line);border-radius:22px;padding:22px;margin-bottom:16px;
+backdrop-filter:blur(20px);box-shadow:0 8px 40px rgba(0,0,0,.35);position:relative;overflow:hidden}
+.card.glow::before{content:"";position:absolute;top:0;left:15%;right:15%;height:1px;
+background:linear-gradient(90deg,transparent,#a855f7,#67e8f9,transparent)}
+.card h2{font-size:19px;font-weight:800;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;
+border-radius:14px;border:none;font-weight:800;font-size:14.5px;font-family:inherit;cursor:pointer;
+color:#fff;text-decoration:none;transition:all .18s cubic-bezier(.4,0,.2,1);width:auto}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn:disabled,.btn.dis{opacity:.4;cursor:not-allowed;pointer-events:none}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#a855f7);box-shadow:0 10px 30px rgba(168,85,247,.4)}
+.btn-pink{background:linear-gradient(135deg,#db2777,#ec4899);box-shadow:0 10px 30px rgba(236,72,153,.4)}
+.btn-cyan{background:linear-gradient(135deg,#0891b2,#06b6d4);box-shadow:0 10px 30px rgba(6,182,212,.4)}
+.btn-gold{background:linear-gradient(135deg,#d97706,#fbbf24);color:#1a1000;box-shadow:0 10px 30px rgba(251,191,36,.4)}
+.btn-green{background:linear-gradient(135deg,#059669,#10b981);box-shadow:0 10px 30px rgba(16,185,129,.4)}
+.btn-ghost{background:var(--glass);border:1px solid var(--line);color:#e5e7eb}
+.btn-ghost:hover{background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.4)}
+.btn-block{display:flex;width:100%}
+.btn-sm{padding:8px 14px;font-size:12.5px;border-radius:10px}
+.btn-lg{padding:17px 32px;font-size:16px;border-radius:16px}
+label{display:block;margin:14px 0 7px;font-weight:700;color:#c9c4ff;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase}
+input,select,textarea{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--line);
+background:rgba(5,6,13,.7);color:#fff;font-size:15px;font-family:inherit;transition:.15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pri2);
+background:rgba(5,6,13,.95);box-shadow:0 0 0 4px rgba(168,85,247,.15)}
+textarea{resize:vertical;min-height:100px}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.svc{position:relative;cursor:pointer;text-decoration:none;color:inherit;padding:20px;border-radius:20px;
+background:linear-gradient(155deg,rgba(30,24,64,.9),rgba(12,8,32,.95));border:1px solid var(--line);
+transition:.25s;overflow:hidden;display:flex;flex-direction:column;gap:6px}
+.svc::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 0%, var(--glow,rgba(168,85,247,.3)) 0%, transparent 55%);opacity:.7}
+.svc:hover{transform:translateY(-5px);border-color:var(--pri2);box-shadow:0 20px 50px rgba(168,85,247,.35)}
+.svc .emo{font-size:38px;position:relative;z-index:1;line-height:1}
+.svc .name{font-size:16px;font-weight:800;color:#fff;position:relative;z-index:1}
+.svc .lim{font-size:11.5px;color:#94a3b8;font-family:ui-monospace,monospace;position:relative;z-index:1}
+.svc .arrow{margin-top:8px;position:relative;z-index:1;font-size:11px;font-weight:800;padding:5px 10px;
+border-radius:8px;background:rgba(168,85,247,.2);color:#c4b5fd;align-self:flex-start}
+.svc.f{--glow:rgba(168,85,247,.5)}.svc.l{--glow:rgba(236,72,153,.5)}
+.svc.v{--glow:rgba(251,191,36,.5)}.svc.c{--glow:rgba(6,182,212,.5)}
+.alert{padding:13px 16px;border-radius:14px;margin:10px 0;font-weight:700;font-size:13.5px;
+display:flex;gap:10px;align-items:flex-start;line-height:1.55}
+.alert-success{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#6ee7b7}
+.alert-danger{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5}
+.alert-info{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#a5f3fc}
+.alert-warn{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fcd34d}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:12px;text-align:right;border-bottom:1px solid var(--line)}
+th{color:#94a3b8;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+tr:hover td{background:rgba(255,255,255,.02)}
+code{background:rgba(255,255,255,.06);padding:2px 8px;border-radius:6px;
+font-family:ui-monospace,monospace;font-size:12.5px;color:#a5f3fc}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:800}
+.badge-pending{background:rgba(251,191,36,.15);color:#fcd34d;border:1px solid rgba(251,191,36,.3)}
+.badge-processing{background:rgba(6,182,212,.15);color:#a5f3fc;border:1px solid rgba(6,182,212,.3)}
+.badge-completed{background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.3)}
+.badge-failed{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
+.badge-blast{background:rgba(168,85,247,.2);color:#c4b5fd;border:1px solid rgba(168,85,247,.4)}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.stat{text-align:center;padding:16px 10px;border-radius:16px;
+background:linear-gradient(180deg,rgba(168,85,247,.08),rgba(168,85,247,.02));border:1px solid var(--line)}
+.stat .num{font-size:24px;font-weight:900;color:#fff;line-height:1.1}
+.stat .num.g{background:linear-gradient(135deg,#a855f7,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .lbl{font-size:11.5px;color:#94a3b8;margin-top:6px;font-weight:700}
+.notice{padding:16px 20px;border-radius:18px;margin-bottom:16px;
+background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(6,182,212,.06));
+border:1px solid rgba(16,185,129,.35);display:flex;align-items:center;gap:14px}
+.notice.gold{background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(217,119,6,.06));border-color:rgba(251,191,36,.35)}
+.notice.red{background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(190,24,93,.06));border-color:rgba(239,68,68,.35)}
+.notice .ico{font-size:32px;width:56px;height:56px;display:grid;place-items:center;
+border-radius:16px;background:rgba(255,255,255,.05);flex-shrink:0}
+.notice .body{flex:1;min-width:0}
+.notice .body h3{margin-bottom:4px;font-size:15px;color:#fff;font-weight:800}
+.notice .body p{font-size:12.5px;color:#cbd5e1}
+.msg-item{padding:14px 16px;border-radius:16px;margin-bottom:10px;font-size:13.5px;
+line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.msg-admin{background:linear-gradient(135deg,rgba(168,85,247,.14),rgba(236,72,153,.06));
+border:1px solid rgba(168,85,247,.3);border-right:4px solid #a855f7}
+.msg-admin::before{content:"👑 من المطور";display:block;font-size:10.5px;color:#c4b5fd;
+font-weight:800;margin-bottom:8px;letter-spacing:.6px;text-transform:uppercase}
+.msg-user{background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.2);border-right:4px solid #06b6d4}
+.msg-user::before{content:"👤 منك";display:block;font-size:10.5px;color:#a5f3fc;
+font-weight:800;margin-bottom:8px;letter-spacing:.6px;text-transform:uppercase}
+.msg-time{font-size:10.5px;color:#64748b;margin-top:8px;display:block;font-family:ui-monospace,monospace}
+.footer{text-align:center;padding:36px 20px 24px;color:#64748b;font-size:12.5px}
+.footer a{color:#a855f7;font-weight:700}
+.fab{position:fixed;bottom:22px;left:22px;z-index:150;width:56px;height:56px;border-radius:50%;
+background:linear-gradient(135deg,#7c3aed,#ec4899);display:grid;place-items:center;cursor:pointer;
+box-shadow:0 12px 40px rgba(168,85,247,.55);font-size:24px;border:2px solid rgba(255,255,255,.1);transition:.25s}
+.fab:hover{transform:scale(1.08) rotate(-8deg)}
+.guide-step{margin-bottom:24px;text-align:center}
+.guide-step img{max-width:100%;border-radius:18px;border:2px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.guide-step .cap{margin-top:14px;padding:14px 20px;border-radius:14px;
+background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(6,182,212,.08));
+border:1px solid rgba(168,85,247,.35);font-weight:800;color:#fff}
+.success-page{max-width:600px;margin:40px auto;text-align:center;padding:40px 26px;border-radius:24px;
+background:linear-gradient(155deg,rgba(16,185,129,.14),rgba(6,182,212,.06));
+border:2px solid rgba(16,185,129,.45);box-shadow:0 24px 70px rgba(16,185,129,.25);
+animation:successPop .5s cubic-bezier(.4,0,.2,1)}
+@keyframes successPop{0%{transform:scale(.8);opacity:0}50%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+.success-page .big-emo{font-size:88px;line-height:1;margin-bottom:20px;animation:bounce 1.2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.success-page h1{font-size:30px;font-weight:900;margin-bottom:14px;
+background:linear-gradient(120deg,#6ee7b7,#a5f3fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+.success-page p{font-size:15px;color:#cbd5e1;line-height:1.75;margin-bottom:8px}
+.success-page .details{margin:26px 0;padding:18px;border-radius:16px;background:rgba(5,6,13,.5);
+border:1px solid var(--line);text-align:right}
+.success-page .details .row{display:flex;justify-content:space-between;padding:9px 0;
+border-bottom:1px dashed var(--line);font-size:13.5px}
+.success-page .details .row:last-child{border-bottom:0}
+.success-page .details .row .lbl{color:#94a3b8}
+.success-page .details .row .val{color:#fff;font-weight:700}
+.loading{text-align:center;padding:60px 20px;color:#94a3b8;font-size:15px}
+.spinner{display:inline-block;width:36px;height:36px;border:3px solid rgba(168,85,247,.2);
+border-top-color:#a855f7;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:14px}
+@media(max-width:600px){.navbar{padding:12px 14px}.nav a{padding:7px 11px;font-size:12.5px}
+.container{padding:16px 12px}.card{padding:18px;border-radius:18px}.hero{padding:24px 12px 18px}
+.fab{width:50px;height:50px;font-size:22px;bottom:16px;left:16px}
+.success-page{margin:20px auto;padding:30px 18px}.success-page .big-emo{font-size:64px}
+.success-page h1{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="logo" onclick="go('home')" style="cursor:pointer">
+    <span class="mark">⚡</span><span class="word">TikTok&nbsp;Spark</span>
+  </div>
+  <nav class="nav" id="nav"></nav>
+</div>
+
+<div class="container" id="app">
+  <div class="loading"><div class="spinner"></div><br>جارٍ التحميل...</div>
+</div>
+
+<div class="footer">
+  TikTok Spark v21.0 · 2026 ·
+  <a href="https://t.me/kJkJKa" target="_blank">@kJkJKa</a>
+</div>
+
+<div class="fab" onclick="go('help')" title="الدعم">💬</div>
+
+<script>
+// ═══════════════ Config ═══════════════
+const VIP_CONTACT = "@kJkJKa";
+const VIP_LINK = "https://t.me/kJkJKa";
+const API_BASE = "/api";
+
+const SVC_NAMES = {followers:"متابعين",likes:"لايكات",views:"مشاهدات",comments:"تعليقات"};
+const SVC_EMO   = {followers:"👥",likes:"❤️",views:"👁️",comments:"💬"};
+const SVC_TGT   = {followers:"اسم المستخدم",likes:"رابط الفيديو",
+                   views:"رابط الفيديو",comments:"رابط الفيديو"};
+
+// ═══════════════ State ═══════════════
+let STATE = { user: null, route: "home", params: [] };
+
+// ═══════════════ API Helper ═══════════════
+async function api(path, method = "GET", body = null) {
+  const opts = { method, headers: {"Content-Type": "application/json"}, credentials: "same-origin" };
+  if (body) opts.body = JSON.stringify(body);
+  try {
+    const r = await fetch(API_BASE + path, opts);
+    const j = await r.json();
+    return j;
+  } catch (e) {
+    return { ok: false, error: "خطأ في الاتصال" };
+  }
+}
+
+// ═══════════════ Helpers ═══════════════
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+function fmtDuration(sec) {
+  if (sec <= 0) return "متاح الآن";
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60);
+  return `${h}س ${m}د`;
+}
+function toast(msg, type = "info") {
+  const el = document.createElement("div");
+  el.className = `alert alert-${type}`;
+  el.innerHTML = esc(msg);
+  el.style.cssText = "position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:9999;max-width:90%;box-shadow:0 10px 40px rgba(0,0,0,.5)";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+
+// ═══════════════ Router ═══════════════
+function go(route, ...args) {
+  location.hash = args.length ? `${route}/${args.join("/")}` : route;
+}
+
+async function loadMe() {
+  const r = await api("/me");
+  STATE.user = (r.ok && r.data) ? r.data.user : null;
+}
+
+function updateNav() {
+  const u = STATE.user;
+  let html = "";
+  if (u) {
+    const dot = u.unread > 0 ? `<span class="dot">${u.unread}</span>` : "";
+    html = `
+      <a href="#home">🏠 الرئيسية</a>
+      <a href="#services">🛍️ الخدمات</a>
+      <a href="#blast">🚀 الرشق</a>
+      <a href="#orders">📋 طلباتي</a>
+      <a href="#account">👤 حسابي</a>
+      <a href="#messages">${dot}📨</a>
+    `;
+  } else {
+    html = `
+      <a href="#home">🏠 الرئيسية</a>
+      <a href="#guide">📖 الشرح</a>
+      <a href="#login">🔐 دخول</a>
+      <a href="#register" class="btn-primary" style="color:#fff;padding:9px 16px;border-radius:11px">📝 سجل</a>
+    `;
+  }
+  document.getElementById("nav").innerHTML = html;
+}
+
+async function render() {
+  const hash = location.hash.slice(1) || "home";
+  const parts = hash.split("/");
+  STATE.route = parts[0];
+  STATE.params = parts.slice(1);
+
+  const app = document.getElementById("app");
+  app.innerHTML = `<div class="loading"><div class="spinner"></div><br>جارٍ التحميل...</div>`;
+
+  updateNav();
+  let html = "";
+  try {
+    switch (STATE.route) {
+      case "home":      html = await renderHome(); break;
+      case "register":  html = await renderRegister(); break;
+      case "login":     html = await renderLogin(); break;
+      case "guide":     html = await renderGuide(); break;
+      case "services":  html = await renderServices(); break;
+      case "service":   html = await renderService(STATE.params[0]); break;
+      case "blast":     html = await renderBlast(); break;
+      case "orders":    html = await renderOrders(); break;
+      case "account":   html = await renderAccount(); break;
+      case "messages":  html = await renderMessages(); break;
+      case "help":      html = await renderHelp(); break;
+      default:          html = await renderHome();
+    }
+  } catch (e) {
+    console.error(e);
+    html = `<div class="card"><h2>⚠️ خطأ</h2><p style="color:#cbd5e1">${esc(e.message)}</p></div>`;
+  }
+  app.innerHTML = html;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ═══════════════ Page: Home ═══════════════
+async function renderHome() {
+  const u = STATE.user;
+  if (!u) {
+    return `
+    <div class="hero">
+      <h1>TikTok Spark</h1>
+      <p class="sub">منصة خدمات TikTok الاحترافية — أنشئ حسابك مجاناً وابدأ فوراً</p>
+      <div class="pills">
+        <span class="chip on">⚡ فوري</span>
+        <span class="chip on">🔒 آمن</span>
+        <span class="chip on">♾️ رشق تلقائي</span>
+        <span class="chip on">🎁 تجربة مجانية</span>
+      </div>
+      <div style="margin-top:32px" class="grid g2">
+        <a href="#register" class="btn btn-primary btn-lg btn-block">📝 إنشاء حساب جديد</a>
+        <a href="#login" class="btn btn-ghost btn-lg btn-block">🔐 تسجيل الدخول</a>
+      </div>
+    </div>
+    <div class="card glow">
+      <h2>✨ لماذا TikTok Spark؟</h2>
+      <div class="grid g3" style="margin-top:14px">
+        <div class="stat"><div class="num g">24/7</div><div class="lbl">🕐 خدمة دائمة</div></div>
+        <div class="stat"><div class="num g">⚡</div><div class="lbl">تنفيذ فوري</div></div>
+        <div class="stat"><div class="num g">🔒</div><div class="lbl">أمان كامل</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🚀 كيف تبدأ؟</h2>
+      <div class="grid g3" style="margin-top:14px">
+        <div class="stat"><div class="num">1</div><div class="lbl">📝 سجّل حسابك</div></div>
+        <div class="stat"><div class="num">2</div><div class="lbl">📖 اتبع الشرح</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">👤 أضف حساب TikTok</div></div>
+        <div class="stat"><div class="num">4</div><div class="lbl">🌱 شغّل التجميع</div></div>
+        <div class="stat"><div class="num">5</div><div class="lbl">🛍️ اطلب خدمة</div></div>
+        <div class="stat"><div class="num">6</div><div class="lbl">🚀 فعّل الرشق</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>📖 شرح إنشاء حساب TikTok</h2>
+      <p style="color:#cbd5e1;margin-bottom:14px">اتبع الصور خطوة بخطوة لإنشاء حساب TikTok جديد</p>
+      <a href="#guide" class="btn btn-cyan btn-block">👁️ مشاهدة الشرح</a>
+    </div>`;
+  }
+
+  const st = u.status;
+  if (st === "banned") {
+    return `<div class="card"><h2>🚫 حسابك محظور</h2><p style="color:#cbd5e1">تواصل مع المطور</p></div>`;
+  }
+
+  let statusHtml = "";
+  if (st === "free") {
+    const cd = u.cooldown > 0
+      ? `<div class="alert alert-warn">⏰ الاستخدام التالي بعد: <b>${fmtDuration(u.cooldown)}</b></div>`
+      : `<div class="alert alert-success">✅ يمكنك الاستخدام الآن</div>`;
+    const vl = u.views_max - u.views_used;
+    statusHtml = `
+      <div class="notice">
+        <div class="ico">🎁</div>
+        <div class="body">
+          <h3>مرحباً ${esc(u.username)} — تجربتك المجانية نشطة</h3>
+          <p>تنتهي: <b>${esc((u.free_expires||"").slice(0,16))}</b></p>
+        </div>
+      </div>
+      <div class="card glow">
+        <h2>🎁 الحدود المجانية</h2>
+        <div class="grid g4" style="margin-top:12px">
+          <div class="stat"><div class="num">20</div><div class="lbl">👥 متابعين</div></div>
+          <div class="stat"><div class="num">20</div><div class="lbl">❤️ لايكات</div></div>
+          <div class="stat"><div class="num">20</div><div class="lbl">💬 تعليقات</div></div>
+          <div class="stat"><div class="num">500</div><div class="lbl">👁️ مشاهدات</div></div>
+        </div>
+        <p style="font-size:12.5px;color:#94a3b8;margin-top:14px">
+          👁️ المشاهدات المتبقية: <b>${vl}/${u.views_max}</b>
+        </p>
+        ${cd}
+        <a href="${VIP_LINK}" target="_blank" class="btn btn-gold btn-block" style="margin-top:14px">👑 ترقية VIP</a>
+      </div>`;
+  } else if (st === "expired") {
+    statusHtml = `
+      <div class="notice red">
+        <div class="ico">⌛</div>
+        <div class="body"><h3>انتهت تجربتك</h3><p>جدّد أو اشترِ VIP</p></div>
+      </div>
+      <div class="card glow">
+        <a href="${VIP_LINK}" target="_blank" class="btn btn-pink btn-block">👑 شراء VIP — ${VIP_CONTACT}</a>
+      </div>`;
+  } else {
+    statusHtml = `
+      <div class="notice gold">
+        <div class="ico">👑</div>
+        <div class="body">
+          <h3>عضوية VIP نشطة</h3>
+          <p>الباقة: <b>${esc(u.vip_plan||"VIP")}</b> · تنتهي: <b>${esc((u.vip_expires||"").slice(0,16))}</b></p>
+        </div>
+      </div>
+      <div class="card glow">
+        <h2>👑 ميزات VIP</h2>
+        <div class="grid g4" style="margin-top:12px">
+          <div class="stat"><div class="num g">100K</div><div class="lbl">👥 متابعين</div></div>
+          <div class="stat"><div class="num g">100K</div><div class="lbl">❤️ لايكات</div></div>
+          <div class="stat"><div class="num g">100K</div><div class="lbl">💬 تعليقات</div></div>
+          <div class="stat"><div class="num g">1M</div><div class="lbl">👁️ مشاهدات</div></div>
+        </div>
+      </div>`;
+  }
+
+  const ttState = u.tiktok_username
+    ? `<div class="notice" style="background:linear-gradient(135deg,rgba(6,182,212,.12),rgba(16,185,129,.06));border-color:rgba(6,182,212,.35)">
+        <div class="ico">👤</div>
+        <div class="body">
+          <h3>حساب TikTok: ${esc(u.tiktok_username)}</h3>
+          <p>🌱 التجميع التلقائي:
+            <b style="color:${u.auto_farm ? "#6ee7b7" : "#fca5a5"}">
+              ${u.auto_farm ? "يعمل ✅" : "متوقف ❌"}
+            </b>
+          </p>
+        </div>
+      </div>`
+    : `<div class="card" style="border-color:rgba(251,191,36,.5)">
+        <h2>👤 أضف حساب TikTok الخاص بك</h2>
+        <p style="color:#cbd5e1;font-size:13.5px;margin-bottom:14px">
+          أضف حسابك ليُستخدم في خدماتك ويساعدك في كسب نقاط أكثر
+        </p>
+        <a href="#account" class="btn btn-primary btn-block">➕ إضافة حساب TikTok</a>
+      </div>`;
+
+  let msgs = [];
+  try {
+    const rm = await api("/messages");
+    if (rm.ok && rm.data) msgs = (rm.data.messages || []).slice(0, 3);
+  } catch {}
+
+  const msgsHtml = msgs.length
+    ? msgs.map(m => `<div class="msg-item ${m.from_admin ? "msg-admin" : "msg-user"}">${esc(m.text)}<span class="msg-time">${esc((m.created_at||"").slice(0,16))}</span></div>`).join("")
+    : `<p style="color:#94a3b8;text-align:center;padding:14px;font-size:13px">لا توجد رسائل بعد</p>`;
+
+  return `
+    <div class="hero">
+      <h1>TikTok Spark</h1>
+      <p class="sub">مرحباً ${esc(u.username)} — اختر ما تريد</p>
+    </div>
+    ${statusHtml}
+    ${ttState}
+    <div class="card">
+      <h2>⚡ ابدأ الآن</h2>
+      <div class="grid g2">
+        <a href="#services" class="btn btn-primary btn-block">🛍️ الخدمات</a>
+        <a href="#blast" class="btn btn-pink btn-block">🚀 الرشق</a>
+        <a href="#orders" class="btn btn-ghost btn-block">📋 طلباتي</a>
+        <a href="#account" class="btn btn-cyan btn-block">👤 حسابي</a>
+      </div>
+    </div>
+    <div class="card">
+      <h2>📨 آخر الرسائل</h2>
+      ${msgsHtml}
+      <a href="#messages" class="btn btn-ghost btn-block" style="margin-top:12px">عرض الكل</a>
+    </div>`;
+}
+
+// ═══════════════ Page: Register ═══════════════
+async function renderRegister() {
+  if (STATE.user) { go("home"); return ""; }
+  setTimeout(() => {
+    const form = document.getElementById("regForm");
+    if (form) form.onsubmit = async e => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const r = await api("/register", "POST", {
+        username: fd.get("username"),
+        password: fd.get("password"),
+        password2: fd.get("password2"),
+      });
+      if (r.ok) {
+        toast("🎉 مرحباً! تجربتك المجانية 24 ساعة مفعّلة", "success");
+        await loadMe(); go("guide");
+      } else toast(r.error || "خطأ", "danger");
+    };
+  }, 0);
+
+  return `
+    <div class="card glow" style="max-width:520px;margin:30px auto">
+      <h1 style="text-align:center;font-size:26px;margin-bottom:8px">📝 إنشاء حساب جديد</h1>
+      <p style="text-align:center;color:#cbd5e1;font-size:13.5px;margin-bottom:20px">
+        ستفتح لك تجربة مجانية <b>24 ساعة</b> مباشرة
+      </p>
+      <form id="regForm">
+        <label>👤 اسم المستخدم</label>
+        <input name="username" required minlength="3" placeholder="احرف انجليزية وارقام" pattern="[A-Za-z0-9_\\-]+">
+        <label>🔒 كلمة المرور</label>
+        <input name="password" type="password" required minlength="5" placeholder="5 احرف على الاقل">
+        <label>🔒 تأكيد كلمة المرور</label>
+        <input name="password2" type="password" required minlength="5">
+        <div style="height:16px"></div>
+        <button class="btn btn-primary btn-block btn-lg" type="submit">🚀 إنشاء الحساب</button>
+      </form>
+      <p style="text-align:center;margin-top:16px;color:#94a3b8;font-size:13px">
+        لديك حساب؟ <a href="#login">سجل دخول</a>
+      </p>
+    </div>`;
+}
+
+// ═══════════════ Page: Login ═══════════════
+async function renderLogin() {
+  if (STATE.user) { go("home"); return ""; }
+  setTimeout(() => {
+    const form = document.getElementById("loginForm");
+    if (form) form.onsubmit = async e => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const r = await api("/login", "POST", {
+        username: fd.get("username"),
+        password: fd.get("password"),
+      });
+      if (r.ok) {
+        toast("👋 مرحباً", "success");
+        await loadMe(); go("home");
+      } else toast(r.error || "خطأ", "danger");
+    };
+  }, 0);
+
+  return `
+    <div class="card glow" style="max-width:480px;margin:30px auto">
+      <h1 style="text-align:center;font-size:26px">🔐 تسجيل الدخول</h1>
+      <form id="loginForm" style="margin-top:16px">
+        <label>👤 اسم المستخدم</label>
+        <input name="username" required>
+        <label>🔒 كلمة المرور</label>
+        <input name="password" type="password" required>
+        <div style="height:16px"></div>
+        <button class="btn btn-primary btn-block btn-lg" type="submit">🚀 دخول</button>
+      </form>
+      <p style="text-align:center;margin-top:16px;color:#94a3b8;font-size:13px">
+        جديد؟ <a href="#register">أنشئ حساب</a>
+      </p>
+    </div>`;
+}
+
+// ═══════════════ Page: Guide ═══════════════
+async function renderGuide() {
+  const r = await api("/guide");
+  const img = (r.ok && r.data.images) ? r.data.images : {};
+  const dl = (r.ok && r.data.download) ? r.data.download : "#";
+  const u = STATE.user;
+
+  return `
+    <div class="card glow">
+      <h1 style="text-align:center;font-size:28px">📖 شرح إنشاء حساب TikTok</h1>
+      <p style="text-align:center;color:#cbd5e1;font-size:14px;margin-top:8px">
+        اتبع الصور خطوة بخطوة لإنشاء حساب TikTok جديد
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="guide-step">
+        <div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:14px">
+          📱 الخطوة 1 — تحميل التطبيق
+        </div>
+        <img src="${esc(img.step1||"")}" alt="خطوة 1" loading="lazy">
+        <div class="cap">
+          حمّل تطبيق <b>VidSpark</b> من Google Play
+          <br><a href="${esc(dl)}" target="_blank" style="margin-top:8px;display:inline-block">📥 تحميل التطبيق</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="guide-step">
+        <div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:14px">
+          👤 الخطوة 2 — إنشاء الحساب
+        </div>
+        <img src="${esc(img.step2||"")}" alt="خطوة 2" loading="lazy">
+        <div class="cap">
+          أنشئ حساب في التطبيق واختر <b>اسم مستخدم</b> فريد باللغة الإنجليزية
+          <br><span style="color:#fcd34d">⚠️ تأكد من جعل الحساب عاماً (Public)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="guide-step">
+        <div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:14px">
+          🔐 الخطوة 3 — تأمين الحساب
+        </div>
+        <img src="${esc(img.step3||"")}" alt="خطوة 3" loading="lazy">
+        <div class="cap">
+          أنشئ <b>كلمة مرور قوية</b> (5-7 أحرف على الأقل)
+          <br><span style="color:#fca5a5">⚠️ احفظها جيداً ولا تشاركها مع أحد</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card glow" style="text-align:center">
+      <h2 style="justify-content:center">✅ جاهز للمتابعة؟</h2>
+      <p style="color:#cbd5e1;margin:14px 0 20px">بعد إنشاء حساب TikTok، أضفه في الموقع لتفعيل خدماتك</p>
+      <a href="${u ? "#account" : "#register"}" class="btn btn-primary btn-lg btn-block">
+        ${u ? "➕ إضافة حساب TikTok" : "📝 إنشاء حساب أولاً"}
+      </a>
+    </div>`;
+}
+
+// ═══════════════ Page: Services ═══════════════
+async function renderServices() {
+  if (!STATE.user) { go("login"); return ""; }
+  const r = await api("/services");
+  if (!r.ok) {
+    return `<div class="card"><h2>⚠️</h2><p style="color:#cbd5e1">${esc(r.error||"خطأ")}</p>
+      <a href="#home" class="btn btn-primary btn-block" style="margin-top:14px">🏠 الرئيسية</a></div>`;
+  }
+  const d = r.data;
+  if (!d.pool) {
+    return `<div class="alert alert-warn">⚠️ الخدمة قيد التهيئة — تواصل مع المطور</div>
+      <a href="#home" class="btn btn-ghost btn-block">🏠 الرئيسية</a>`;
+  }
+  if (d.status === "free" && d.cooldown > 0) {
+    return `<div class="alert alert-warn">⏰ الاستخدام التالي بعد: <b>${fmtDuration(d.cooldown)}</b></div>
+      <a href="#home" class="btn btn-ghost btn-block">🏠 الرئيسية</a>`;
+  }
+
+  const cls = {followers:"f",likes:"l",views:"v",comments:"c"};
+  let cards = "";
+  for (const svc of ["followers","likes","views","comments"]) {
+    const lim = d.limits[svc];
+    if (!lim) continue;
+    const [lo, hi] = lim;
+    if (svc === "views" && d.status === "free" && d.views_left <= 0) {
+      cards += `<div class="svc ${cls[svc]}" style="opacity:.4;pointer-events:none">
+        <div class="emo">${SVC_EMO[svc]}</div><div class="name">${SVC_NAMES[svc]}</div>
+        <div class="lim">استنفدت</div><div class="arrow">مقفل 🔒</div></div>`;
+    } else {
+      cards += `<a href="#service/${svc}" class="svc ${cls[svc]}">
+        <div class="emo">${SVC_EMO[svc]}</div><div class="name">${SVC_NAMES[svc]}</div>
+        <div class="lim">${lo} - ${hi.toLocaleString()}</div>
+        <div class="arrow">ابدأ ←</div></a>`;
+    }
+  }
+  return `
+    <div class="card glow">
+      <h2>🛍️ الخدمات</h2>
+      <p style="color:#cbd5e1;font-size:13.5px">
+        الباقة: ${d.status === "vip" ? "👑 VIP" : "🎁 مجانية"}
+      </p>
+    </div>
+    <div class="svc-grid">${cards}</div>`;
+}
+
+// ═══════════════ Page: Service (order) ═══════════════
+async function renderService(svc) {
+  if (!STATE.user) { go("login"); return ""; }
+  if (!SVC_NAMES[svc]) { go("services"); return ""; }
+  const r = await api("/services");
+  if (!r.ok) { toast(r.error||"خطأ", "danger"); go("services"); return ""; }
+  const d = r.data;
+  const lim = d.limits[svc];
+  if (!lim) { go("services"); return ""; }
+  const [lo, hi] = lim;
+
+  setTimeout(() => {
+    const form = document.getElementById("svcForm");
+    if (form) form.onsubmit = async e => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const r2 = await api("/service/order", "POST", {
+        service: svc,
+        target: fd.get("target"),
+        amount: parseInt(fd.get("amount")) || 0,
+      });
+      if (r2.ok) {
+        const o = r2.data;
+        document.getElementById("app").innerHTML = `
+          <div class="success-page">
+            <div class="big-emo">✅</div>
+            <h1>تم إرسال طلبك بنجاح</h1>
+            <p>بدأ التنفيذ — تابع النتيجة في حسابك على TikTok</p>
+            <div class="details">
+              <div class="row"><span class="lbl">🛍️ الخدمة</span><span class="val">${SVC_EMO[svc]} ${SVC_NAMES[svc]}</span></div>
+              <div class="row"><span class="lbl">🎯 الهدف</span><span class="val"><code>${esc((o.target||"").slice(0,32))}</code></span></div>
+              <div class="row"><span class="lbl">🔢 الكمية</span><span class="val">${o.amount}</span></div>
+            </div>
+            <div class="grid g2" style="margin-top:20px">
+              <a href="#orders" class="btn btn-primary btn-block">📋 طلباتي</a>
+              <a href="#services" class="btn btn-ghost btn-block">🛍️ طلب آخر</a>
+            </div>
+          </div>`;
+        await loadMe(); updateNav();
+      } else toast(r2.error || "فشل", "danger");
+    };
+  }, 0);
+
+  const cdNote = d.status === "free"
+    ? `<div class="alert alert-info">⏰ بعد هذا الاستخدام ينتظر 5 ساعات</div>` : "";
+
+  return `
+    <div class="card glow" style="max-width:560px;margin:0 auto">
+      <div style="font-size:56px;text-align:center;line-height:1">${SVC_EMO[svc]}</div>
+      <h2 style="justify-content:center;text-align:center;margin-top:10px">${SVC_NAMES[svc]}</h2>
+      <p style="text-align:center;color:#94a3b8;margin-bottom:16px">
+        المدى: <code>${lo}</code> - <code>${hi.toLocaleString()}</code>
+      </p>
+      ${cdNote}
+      <form id="svcForm">
+        <label>🎯 ${SVC_TGT[svc]}</label>
+        <input name="target" required placeholder="${SVC_TGT[svc]}">
+        <label>🔢 الكمية</label>
+        <input name="amount" type="number" min="${lo}" max="${hi}" value="${hi}" required>
+        <div style="height:16px"></div>
+        <button class="btn btn-primary btn-block btn-lg">🚀 إرسال</button>
+      </form>
+      <a href="#services" class="btn btn-ghost btn-block" style="margin-top:10px">🔙 رجوع</a>
+    </div>`;
+}
+
+// ═══════════════ Page: Blast ═══════════════
+async function renderBlast() {
+  if (!STATE.user) { go("login"); return ""; }
+  const r = await api("/blast");
+  const tasks = (r.ok && r.data) ? (r.data.tasks || []) : [];
+  const active = tasks.filter(t => t.status === "active");
+  const stopped = tasks.filter(t => t.status === "stopped");
+  const st = STATE.user.status;
+  const minHours = st === "free" ? 5 : 1;
+
+  setTimeout(() => {
+    const form = document.getElementById("blastForm");
+    if (form) form.onsubmit = async e => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const r2 = await api("/blast", "POST", {
+        service: fd.get("service"),
+        target: fd.get("target"),
+        amount: parseInt(fd.get("amount")) || 0,
+        hours: parseInt(fd.get("hours")) || 1,
+      });
+      if (r2.ok) {
+        toast("🚀 تم الرشق بنجاح", "success");
+        render();
+      } else toast(r2.error || "فشل", "danger");
+    };
+    document.querySelectorAll("[data-blast-stop]").forEach(el => {
+      el.onclick = async ev => {
+        ev.preventDefault();
+        if (!confirm("إيقاف المهمة؟")) return;
+        const r3 = await api("/blast/stop", "POST", { tid: el.dataset.blastStop });
+        if (r3.ok) { toast("⏹ تم الإيقاف", "info"); render(); }
+      };
+    });
+    document.querySelectorAll("[data-blast-del]").forEach(el => {
+      el.onclick = async ev => {
+        ev.preventDefault();
+        if (!confirm("حذف المهمة؟")) return;
+        const r3 = await api("/blast/delete", "POST", { tid: el.dataset.blastDel });
+        if (r3.ok) { toast("🗑 تم الحذف", "info"); render(); }
+      };
+    });
+  }, 0);
+
+  const row = (t, isActive) => {
+    const btn = isActive
+      ? `<button class="btn btn-pink btn-sm" data-blast-stop="${esc(t.task_id)}">⏹</button>`
+      : `<button class="btn btn-ghost btn-sm" data-blast-del="${esc(t.task_id)}">🗑</button>`;
+    return `<tr>
+      <td>${SVC_EMO[t.service]||""} ${SVC_NAMES[t.service]||""}</td>
+      <td><code>${esc((t.target||"").slice(0,24))}</code></td>
+      <td>${t.amount}</td>
+      <td>${t.hours}h</td>
+      <td>${t.run_count||0}</td>
+      <td>${btn}</td>
+    </tr>`;
+  };
+
+  const ar = active.map(t => row(t, true)).join("") ||
+    `<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:20px">لا توجد</td></tr>`;
+  const sr = stopped.map(t => row(t, false)).join("") ||
+    `<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:20px">لا توجد</td></tr>`;
+
+  let hoursOpts = "";
+  for (const h of [1,2,3,4,5,6,8,12,24]) {
+    if (st === "free" && h < minHours) continue;
+    const sel = h === minHours ? "selected" : "";
+    hoursOpts += `<option value="${h}" ${sel}>كل ${h} ساعة</option>`;
+  }
+
+  return `
+    <div class="card glow">
+      <h2>🚀 الرشق التلقائي</h2>
+      <p style="color:#cbd5e1;font-size:13.5px">يُنفّذ فوراً عند الضغط ثم يكرر تلقائياً</p>
+      <form id="blastForm" style="margin-top:14px">
+        <label>🛍️ الخدمة</label>
+        <select name="service">
+          <option value="followers">👥 متابعين</option>
+          <option value="likes">❤️ لايكات</option>
+          <option value="views">👁️ مشاهدات</option>
+          <option value="comments">💬 تعليقات</option>
+        </select>
+        <label>🎯 الهدف</label>
+        <input name="target" required>
+        <label>🔢 الكمية/رشقة</label>
+        <input name="amount" type="number" min="1" value="20" required>
+        <label>⏰ الفاصل</label>
+        <select name="hours">${hoursOpts}</select>
+        <div style="height:16px"></div>
+        <button class="btn btn-pink btn-block btn-lg">🚀 ابدأ الآن</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>🟢 المهام النشطة (${active.length})</h2>
+      <table><tr><th>الخدمة</th><th>الهدف</th><th>الكمية</th><th>الفاصل</th><th>الرشقات</th><th></th></tr>${ar}</table>
+    </div>
+    <div class="card">
+      <h2>🔴 الموقوفة (${stopped.length})</h2>
+      <table><tr><th>الخدمة</th><th>الهدف</th><th>الكمية</th><th>الفاصل</th><th>الرشقات</th><th></th></tr>${sr}</table>
+    </div>`;
+}
+
+// ═══════════════ Page: Orders ═══════════════
+async function renderOrders() {
+  if (!STATE.user) { go("login"); return ""; }
+  const r = await api("/orders");
+  const items = (r.ok && r.data) ? (r.data.orders || []) : [];
+  const total = items.length;
+  const pendingC = items.filter(o => o.status === "pending").length;
+  const completedC = items.filter(o => o.status === "completed").length;
+
+  const badgeMap = {pending:"badge-pending",processing:"badge-processing",
+                    completed:"badge-completed",failed:"badge-failed"};
+  const txtMap = {pending:"⏳ انتظار",processing:"🔄 تنفيذ",
+                  completed:"✅ مكتمل",failed:"❌ فشل"};
+
+  let rows = "";
+  for (const o of items) {
+    const b = badgeMap[o.status] || "badge-pending";
+    const t = txtMap[o.status] || o.status;
+    const src = o.source === "blast" ? ' <span class="badge badge-blast">🚀 رشق</span>' : "";
+    rows += `<tr>
+      <td>${SVC_EMO[o.service]||""} ${SVC_NAMES[o.service]||""}</td>
+      <td><code>${esc((o.target||"").slice(0,28))}</code></td>
+      <td>${o.amount}</td>
+      <td><span class="badge ${b}">${t}</span>${src}</td>
+      <td style="color:#64748b;font-size:11.5px">${esc((o.created_at||"").slice(0,16))}</td>
+    </tr>`;
+  }
+  if (!rows) rows = `<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:40px">
+    لا توجد طلبات بعد<br><a href="#services" style="color:#a855f7">ابدأ من هنا ←</a></td></tr>`;
+
+  return `
+    <div class="card glow">
+      <h2>📋 طلباتي</h2>
+      <div class="grid g3" style="margin-top:12px">
+        <div class="stat"><div class="num">${total}</div><div class="lbl">📊 الكل</div></div>
+        <div class="stat"><div class="num">${pendingC}</div><div class="lbl">⏳ انتظار</div></div>
+        <div class="stat"><div class="num">${completedC}</div><div class="lbl">✅ مكتمل</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <table>
+        <tr><th>الخدمة</th><th>الهدف</th><th>الكمية</th><th>الحالة</th><th>التاريخ</th></tr>
+        ${rows}
+      </table>
+    </div>`;
+}
+
+// ═══════════════ Page: Account ═══════════════
+async function renderAccount() {
+  if (!STATE.user) { go("login"); return ""; }
+  const r = await api("/account");
+  const accs = (r.ok && r.data) ? (r.data.accounts || []) : [];
+  const ttU = STATE.user.tiktok_username;
+  const farmOn = STATE.user.auto_farm === 1;
+
+  setTimeout(() => {
+    const addForm = document.getElementById("addForm");
+    if (addForm) addForm.onsubmit = async e => {
+      e.preventDefault();
+      const fd = new FormData(addForm);
+      addForm.querySelector("button").disabled = true;
+      const r2 = await api("/account/add-tiktok", "POST", {
+        tt_username: fd.get("tt_username"),
+        tt_password: fd.get("tt_password"),
+        auto_farm: fd.get("auto_farm") === "1",
+      });
+      if (r2.ok) {
+        if (r2.data.logged_in) toast(`✅ تم! النقاط: ${r2.data.points}`, "success");
+        else toast("⚠️ أضيف لكن فشل الدخول", "warn");
+        await loadMe(); render();
+      } else { toast(r2.error || "خطأ", "danger"); addForm.querySelector("button").disabled = false; }
+    };
+    const togForm = document.getElementById("togForm");
+    if (togForm) togForm.onsubmit = async e => {
+      e.preventDefault();
+      const on = togForm.querySelector("[name=on]").value === "1";
+      const r3 = await api("/account/toggle-farm", "POST", { on });
+      if (r3.ok) { toast(on ? "🌱 مفعّل" : "⏹ موقوف", "success"); await loadMe(); render(); }
+      else toast(r3.error || "خطأ", "danger");
+    };
+    document.querySelectorAll("[data-remove]").forEach(el => {
+      el.onclick = async ev => {
+        ev.preventDefault();
+        if (!confirm("حذف الحساب؟")) return;
+        const r4 = await api("/account/remove-tiktok", "POST", { aid: parseInt(el.dataset.remove) });
+        if (r4.ok) { toast("🗑 حُذف", "info"); await loadMe(); render(); }
+      };
+    });
+  }, 0);
+
+  if (!ttU && !accs.length) {
+    return `
+      <div class="card glow">
+        <h2>👤 أضف حساب TikTok الخاص بك</h2>
+        <p style="color:#cbd5e1;font-size:13.5px">
+          لم تُضف حساب TikTok بعد. اطلع على الشرح أولاً
+        </p>
+        <a href="#guide" class="btn btn-cyan btn-block" style="margin-top:10px">📖 مشاهدة الشرح</a>
+      </div>
+      <div class="card">
+        <h2>➕ إضافة حسابك</h2>
+        <form id="addForm">
+          <label>👤 اسم المستخدم TikTok</label>
+          <input name="tt_username" required placeholder="مثال: as_3310">
+          <label>🔒 كلمة المرور</label>
+          <input name="tt_password" type="password" required minlength="5">
+          <div style="margin-top:14px;padding:14px;border-radius:14px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.3)">
+            <label style="margin-top:0;display:flex;align-items:center;gap:10px;cursor:pointer">
+              <input type="checkbox" name="auto_farm" value="1" checked style="width:auto">
+              🌱 تشغيل التجميع التلقائي فوراً
+            </label>
+          </div>
+          <div style="height:16px"></div>
+          <button class="btn btn-primary btn-block btn-lg" type="submit">✅ إضافة الحساب</button>
+        </form>
+      </div>`;
+  }
+
+  const accRows = accs.length
+    ? accs.map(a => `<tr>
+        <td><code>${esc(a.username)}</code></td>
+        <td>${a.points}</td>
+        <td>${a.running ? "🌱 يعمل" : "⏹ متوقف"}</td>
+        <td><button class="btn btn-ghost btn-sm" data-remove="${a.id}">🗑</button></td>
+      </tr>`).join("")
+    : `<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:20px">لا توجد</td></tr>`;
+
+  return `
+    <div class="card glow">
+      <h2>👤 حسابي</h2>
+      <div class="grid g2" style="margin-top:14px">
+        <div class="stat">
+          <div class="num">${esc(ttU || "-")}</div>
+          <div class="lbl">TikTok username</div>
+        </div>
+        <div class="stat">
+          <div class="num g">${farmOn ? "🌱" : "⏹"}</div>
+          <div class="lbl">التجميع: ${farmOn ? "يعمل" : "متوقف"}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🌱 التجميع التلقائي</h2>
+      <p style="color:#cbd5e1;font-size:13.5px">
+        عند تشغيله، النظام يجمع النقاط من حسابك تلقائياً
+      </p>
+      <form id="togForm" style="margin-top:14px">
+        <input type="hidden" name="on" value="${farmOn ? "0" : "1"}">
+        <button class="btn btn-${farmOn ? "pink" : "green"} btn-block btn-lg" type="submit">
+          ${farmOn ? "⏹ إيقاف التجميع" : "🌱 تشغيل التجميع التلقائي"}
+        </button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>🏦 حساباتك المضافة</h2>
+      <table>
+        <tr><th>الحساب</th><th>النقاط</th><th>الحالة</th><th></th></tr>
+        ${accRows}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>➕ إضافة حساب TikTok آخر</h2>
+      <form id="addForm">
+        <label>👤 اسم المستخدم TikTok</label>
+        <input name="tt_username" required placeholder="مثال: as_3310">
+        <label>🔒 كلمة المرور</label>
+        <input name="tt_password" type="password" required minlength="5">
+        <div style="height:16px"></div>
+        <button class="btn btn-primary btn-block" type="submit">✅ إضافة</button>
+      </form>
+    </div>`;
+}
+
+// ═══════════════ Page: Messages ═══════════════
+async function renderMessages() {
+  if (!STATE.user) { go("login"); return ""; }
+  const r = await api("/messages");
+  const items = (r.ok && r.data) ? (r.data.messages || []) : [];
+
+  let html = items.length
+    ? items.map(m => `<div class="msg-item ${m.from_admin ? "msg-admin" : "msg-user"}">${esc(m.text)}<span class="msg-time">${esc((m.created_at||"").slice(0,16))}</span></div>`).join("")
+    : `<p style="color:#94a3b8;text-align:center;padding:30px">لا توجد رسائل</p>`;
+
+  // reset unread
+  await loadMe(); updateNav();
+
+  return `
+    <div class="card glow">
+      <h2>📨 الرسائل</h2>
+      <p style="color:#cbd5e1;font-size:13.5px;margin-bottom:16px">هنا تصلك رسائل المطور</p>
+      ${html}
+    </div>
+    <div class="card">
+      <h2>💬 أرسل رسالة</h2>
+      <a href="#help" class="btn btn-cyan btn-block">📨 فتح صفحة الدعم</a>
+    </div>`;
+}
+
+// ═══════════════ Page: Help ═══════════════
+async function renderHelp() {
+  const u = STATE.user;
+  setTimeout(() => {
+    const form = document.getElementById("helpForm");
+    if (form) form.onsubmit = async e => {
+      e.preventDefault();
+      if (!STATE.user) { toast("🔐 سجل دخول أولاً", "warn"); go("login"); return; }
+      const fd = new FormData(form);
+      const r = await api("/help", "POST", { message: fd.get("message") });
+      if (r.ok) { toast("✅ تم الإرسال", "success"); go("messages"); }
+      else toast(r.error || "خطأ", "danger");
+    };
+  }, 0);
+
+  return `
+    <div class="card glow">
+      <h2>💬 الدعم</h2>
+      <p style="color:#cbd5e1;font-size:13.5px">سيتلقى الفريق رسالتك فوراً</p>
+      ${u ? `<p style="margin-top:10px"><b>معرّفك:</b> <code>${esc(u.username)}</code></p>` : ""}
+      <form id="helpForm" style="margin-top:16px">
+        <label>📝 رسالتك</label>
+        <textarea name="message" required placeholder="اكتب مشكلتك أو استفسارك..."></textarea>
+        <div style="height:16px"></div>
+        <button class="btn btn-cyan btn-block">📨 إرسال</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>👑 ترقية VIP</h2>
+      <ul style="list-style:none;padding:0;margin:14px 0">
+        <li style="padding:10px 0;font-size:13.5px;border-bottom:1px dashed var(--line)">✓ متابعين حتى 100,000</li>
+        <li style="padding:10px 0;font-size:13.5px;border-bottom:1px dashed var(--line)">✓ لايكات حتى 100,000</li>
+        <li style="padding:10px 0;font-size:13.5px;border-bottom:1px dashed var(--line)">✓ مشاهدات حتى 1,000,000</li>
+        <li style="padding:10px 0;font-size:13.5px;border-bottom:1px dashed var(--line)">✓ تعليقات حتى 100,000</li>
+        <li style="padding:10px 0;font-size:13.5px;border-bottom:1px dashed var(--line)">✓ رشق تلقائي كل ساعة ♾️</li>
+        <li style="padding:10px 0;font-size:13.5px">✓ بلا كولداون</li>
+      </ul>
+      <a href="${VIP_LINK}" target="_blank" class="btn btn-gold btn-block">👑 ${VIP_CONTACT}</a>
+    </div>`;
+}
+
+// ═══════════════ Boot ═══════════════
+window.addEventListener("hashchange", render);
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadMe();
+  updateNav();
+  render();
+});
+</script>
+</body>
+</html>
